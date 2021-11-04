@@ -22,30 +22,17 @@ mongoose.connect(process.env.DB_MONGO_URL)
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded());
-
-const corsOptionsDelegate = function(req, callback) {
-  let corsOptions;
-  if (whitelist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = {origin: true}
-  } else {
-    corsOptions = { origin: false}
+app.use(limiter);
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (whitelist.indexOf(origin) !== -1) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
   }
-  callback(null, corsOptions);
-}
-
-app.use(cors(corsOptionsDelegate));
-// app.use((req, res, next) => {
-//   const origin = req.headers.origin;
-//   if (whitelist.indexOf(origin) > -1) {
-//     res.setHeader('Access-Control-Allow-Origin', origin);
-//   }
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
-//   res.setHeader('Access-Control-Allow-Credentials', true);
-//   next();
-// })
-
-
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+})
 
 app.post('/contact', messageCtrl.createNewMessage);
 
