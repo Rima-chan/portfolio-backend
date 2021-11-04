@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-// const cors = require('cors');
+const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
@@ -23,7 +23,7 @@ mongoose.connect(process.env.DB_MONGO_URL)
 
 app.use(helmet());
 app.use(limiter);
-
+app.use(cors());
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (whitelist.indexOf(origin) > -1) {
