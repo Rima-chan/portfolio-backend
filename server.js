@@ -22,7 +22,7 @@ mongoose.connect(process.env.DB_MONGO_URL)
   .catch(error => console.log(error));
 
 app.use(helmet());
-// app.use(limiter);
+app.use(limiter);
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
