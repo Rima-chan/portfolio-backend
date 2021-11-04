@@ -12,7 +12,7 @@ const domains = process.env.CORS_DOMAIN;
 const whitelist = domains?.split(',');
 const limiter = rateLimit({
   windowMs: 1000,
-  max: 1
+  max: 10
 });
 
 const app = express();
