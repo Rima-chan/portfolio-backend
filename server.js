@@ -8,7 +8,7 @@ const messageCtrl = require('./controllers/messageCtrl');
 
 const app = express();
 
-const whitelist = ['http://127.0.0.1', 'http://127.0.0.1:3000', 'http://localhost:3000', 'http://192.168.1.19:3000', 'https://portfolio-mb1.herokuapp.com'];
+const whitelist = process.env.CORS_DOMAIN.split(',');
 
 const limiter = rateLimit({
   windowMs: 1000,
@@ -23,17 +23,17 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded());
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || whitelist.indexOf(origin) > -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+const corsOptionsDelegate = function(req, callback) {
+  let corsOptions;
+  if (whitelist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = {origin: true}
+  } else {
+    corsOptions = { origin: false}
   }
+  callback(null, corsOptions);
 }
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptionsDelegate));
 // app.use((req, res, next) => {
 //   const origin = req.headers.origin;
 //   if (whitelist.indexOf(origin) > -1) {
