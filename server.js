@@ -10,6 +10,11 @@ const app = express();
 
 const whitelist = ['http://127.0.0.1', 'http://127.0.0.1:3000', 'http://localhost:3000', 'http://192.168.1.19:3000', 'https://portfolio-mb1.herokuapp.com'];
 
+const limiter = rateLimit({
+  windowMs: 1000,
+  max: 1
+});
+
 mongoose.connect(process.env.DB_MONGO_URL)
   .then(() => console.log('Connected to MongoDB'))
   .catch(error => console.log(error));
@@ -17,17 +22,30 @@ mongoose.connect(process.env.DB_MONGO_URL)
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded());
-// app.use(cors());
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (whitelist.indexOf(origin) > -1) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || whitelist.indexOf(origin) > -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
   }
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-})
+}
+
+app.use(cors(corsOptions));
+// app.use((req, res, next) => {
+//   const origin = req.headers.origin;
+//   if (whitelist.indexOf(origin) > -1) {
+//     res.setHeader('Access-Control-Allow-Origin', origin);
+//   }
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// })
+
+
 
 app.post('/contact', messageCtrl.createNewMessage);
 
