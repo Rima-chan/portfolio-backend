@@ -19,7 +19,8 @@
     "express": "^4.17.1",
     "express-rate-limit": "^5.5.0",
     "helmet": "^4.6.0",
-    "mongoose": "^6.0.12"
+    "mongoose": "^6.0.12",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
