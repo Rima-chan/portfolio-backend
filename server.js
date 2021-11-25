@@ -24,17 +24,27 @@ mongoose.connect(process.env.DB_MONGO_URL)
 
 app.use(helmet());
 app.use(limiter);
-// app.use(cors());
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  if (whitelist.indexOf(origin) > -1) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
+
+const corsOptionsDelegate =  function(req, callback) {
+  let corsOptions;
+  if (domains.indexOf(req.headers.origin) !== -1) {
+    corsOptions = {origin: true}
+  } else { 
+    corsOptions = { origin: false}
   }
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+  callback(null, corsOptions);
+}
+app.use(cors(corsOptionsDelegate));
+// app.use((req, res, next) => {
+//   const origin = req.headers.origin;
+//   if (whitelist.indexOf(origin) > -1) {
+//     res.setHeader('Access-Control-Allow-Origin', origin);
+//   }
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+//   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// });
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.static('images'));
