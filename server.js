@@ -8,6 +8,7 @@ const path = require('path');
 const port = process.env.PORT || 5500;
 const messageCtrl = require('./controllers/messageCtrl');
 const projectCtrl = require('./controllers/projectCtrl');
+const fileCtrl = require('./controllers/fileCtrl');
 const domains = process.env.CORS_DOMAIN;
 const whitelist = domains?.split(',');
 const limiter = rateLimit({
@@ -23,7 +24,7 @@ mongoose.connect(process.env.DB_MONGO_URL)
 
 app.use(helmet());
 app.use(limiter);
-app.use(cors());
+// app.use(cors());
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (whitelist.indexOf(origin) > -1) {
@@ -43,5 +44,6 @@ app.use(express.urlencoded());
 
 app.post('/contact', messageCtrl.createNewMessage);
 app.get('/projects', projectCtrl.getAllProjects);
+app.get('/download', fileCtrl.downloadFile);
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
