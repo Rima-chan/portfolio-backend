@@ -25,16 +25,18 @@ mongoose.connect(process.env.DB_MONGO_URL)
 app.use(helmet());
 app.use(limiter);
 
-const corsOptionsDelegate =  function(req, callback) {
-  let corsOptions;
-  if (whitelist.indexOf(req.headers.origin) !== -1) {
-    corsOptions = {origin: true}
-  } else { 
-    corsOptions = { origin: false}
-  }
-  callback(null, corsOptions);
-}
-app.use(cors(corsOptionsDelegate));
+// const corsOptionsDelegate =  function(req, callback) {
+//   let corsOptions;
+//   if (whitelist.indexOf(req.headers.origin) !== -1) {
+//     corsOptions = {origin: true}
+//   } else { 
+//     corsOptions = { origin: false}
+//   }
+//   callback(null, corsOptions);
+// }
+// app.use(cors(corsOptionsDelegate));
+
+app.use(cors());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.static('images'));
 
