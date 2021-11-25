@@ -4,7 +4,7 @@ const data = [
         "title": "Site e-commerce",
         "type": "Projet formation web",
         "attachments": ['p5_screen_devises.png', 'p5_capture_accueil.png', 'p5_deckstop_shop.png'],
-        "description": "Réalisation du MVP front-end d'un site e-commerce uniquement en CSS, HTML et JavaScript",
+        "description": "Réalisation du MVP front-end d'un site e-commerce uniquement en CSS, HTML et JavaScript. Fonctionnalités : récupérer les données d'une API, gestion du panier, formulaire sécurisé",
         "langages": "Html, CSS, Javascript",
         "tags": ["html", "css", "javascript", "bootstrap"],
         "details": [
@@ -20,12 +20,12 @@ const data = [
         "title": "Backend - API Rest",
         "type": "Projet formation web",
         "attachments": ['p6_page_accueil.png', 'p6_sauce.png', 'p6_likes.png'],
-        "description": "Réalisation du backend (frontend déjà réalisé) d'un site d'avis gastronomiques (sauces piquantes) : création d'une API REST (CRUD).",
+        "description": "Réalisation du backend (frontend déjà réalisé) d'un site d'avis gastronomiques (sauces piquantes) : création d'une API REST (CRUD). Fonctionnalités : création (authentification/déconnexion) d'un compte utilisateur, ajout/modification/suppresion d'une sauce, système de Like/Dislikes",
         "langages": "NodeJS, Express, MongoDB",
         "tags": ["NodeJS", "Express", "MongoDB"],
         "details": [
-            "Creation et authentification utilisateur",
-            "Création, ajout et modification de sauces (avec authentification)",
+            "Creation compte et authentification utilisateur",
+            "Ajout, modification et suppression de sauces (avec authentification)",
             "Système Like/Dislikes",
             "Base de données sécurisée"
         ],
@@ -37,15 +37,14 @@ const data = [
         "type": "Projet formation web",
         "attachments": [ 'p7_screen_devises.png', 'p7_posts.png', 'p7_inscription.png'],
         "langages": "NodeJS, Sequelize, Vue",
-        "description": "Réalisation du MVP d'un réseau social (partages d'images style 9gag) interne avec profils administrateurs.",
+        "description": "Réalisation du MVP d'un réseau social (partages d'images style 9gag) interne avec profils administrateurs. Fonctionnalités : creation/authentification/déconnexion compte utilisateur, creation/modification/suppression d'un post, commenter les posts (modification/suppression possibles), modification/suppression d'un profil, droits administrateurs (modération des publications et commentaires)",
         "tags": ["NodeJS", "Express", "Sequelize", "MySQL", "VueJS", "Bootstrap"],
         "details": [
             "Creation compte, connexion, déconnexion utilisateur",
-            "Authentification utilisateur (normal/administrateur)",
-            "Publication, modification, suppresion d'un post",
-            "Publication, modification, suppression commantaire",
+            "Authentification utilisateur",
+            "Publication, modification, suppresion d'un post et d'un commentaire",
             "Modification, suppression d'un profil utilisateur",
-
+            "Privilèges administrateur"
         ],
         "github": "https://github.com/Rima-chan/MarieBeaujeu_7_21082021.git"
     },
