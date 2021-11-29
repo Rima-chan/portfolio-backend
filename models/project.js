@@ -12,8 +12,8 @@ const data = [
             "Panier shopping",
             "Formulaire sécurisé"
         ],
-        "url": "https://rima-chan.github.io/E-commerce_Website/",
-        "github": "https://github.com/Rima-chan/E-commerce_Website.git"
+        "url": "https://rima-chan.github.io/Ecommerce-Website/",
+        "github": "https://github.com/Rima-chan/Ecommerce-Website.git"
     },
     {
         "id": "p2",
